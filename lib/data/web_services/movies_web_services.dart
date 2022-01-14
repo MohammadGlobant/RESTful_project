@@ -19,7 +19,20 @@ class MoviesWebServices{
     Response response = await dio.get(EndPoints.allMovies);
     List<dynamic> responseData = jsonDecode(response.toString())['results'];
     return responseData;
-
   }
 
+
+  Future<dynamic> getMovieDetails(String id) async {
+
+    try {
+      Response response = await dio.get(id+EndPoints.movieDetails);
+      print(response.data.toString());
+      print(id+"");
+      return response.data;
+    } catch (e) {
+      print(id+"");
+      print(e.toString());
+      return [];
+    }
+  }
 }

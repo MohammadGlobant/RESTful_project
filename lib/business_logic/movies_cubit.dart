@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:restful_project/data/models/Details.dart';
 import 'package:restful_project/data/models/Results.dart';
-import 'package:restful_project/data/models/movies.dart';
 import 'package:restful_project/data/repository/movies_repository.dart';
 
 part 'movies_state.dart';
@@ -9,6 +9,7 @@ part 'movies_state.dart';
 class MoviesCubit extends Cubit<MoviesState> {
   final MoviesRepository moviesRepository;
   List<Results> movies = [];
+  late Details details ;
 
   MoviesCubit(this.moviesRepository) : super(MoviesInitial());
 
@@ -17,8 +18,15 @@ class MoviesCubit extends Cubit<MoviesState> {
       emit(MoviesLoaded(movies));
       this.movies = movies;
     });
-
     return movies;
+  }
+
+  Details getMovieInfo(String id){
+    moviesRepository.getMovieDetails(id).then((details){
+      emit(DetailsLoaded(details));
+      this.details = details;
+    });
+    return details;
   }
 
 }

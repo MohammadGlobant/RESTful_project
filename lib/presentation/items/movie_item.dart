@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restful_project/AppRouter.dart';
 import 'package:restful_project/constants/endpoints.dart';
 import 'package:restful_project/constants/project_colors.dart';
 import 'package:restful_project/data/models/Results.dart';
@@ -19,7 +20,7 @@ class MovieItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, EndPoints.movieDetails , arguments: movie),
+        onTap: () => Navigator.pushNamed(context, AppRouter.movieDetalisScreen , arguments: movie),
         child: GridTile(
           child: Hero(
             tag: movie.id,

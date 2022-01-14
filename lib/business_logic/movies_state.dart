@@ -9,3 +9,8 @@ class MoviesLoaded extends MoviesState{
   final List<Results> movies;
   MoviesLoaded(this.movies);
 }
+
+class DetailsLoaded extends MoviesState{
+  final Details details;
+  DetailsLoaded(this.details);
+}

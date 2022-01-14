@@ -1,3 +1,4 @@
+import 'package:restful_project/data/models/Details.dart';
 import 'package:restful_project/data/models/Results.dart';
 import 'package:restful_project/data/web_services/movies_web_services.dart';
 
@@ -9,6 +10,11 @@ class MoviesRepository{
   Future<List<Results>> getAllMovies() async {
     final movies = await moviesWebServices.getAllMovies();
     return movies.map((movie) => Results.fromJson(movie)).toList();
+  }
+
+  Future<Details> getMovieDetails(String id) async {
+    final movieDetails = await moviesWebServices.getMovieDetails(id);
+    return movieDetails.map((movieDetail) => Details.fromJson(movieDetail));
   }
 
 }

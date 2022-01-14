@@ -9,7 +9,6 @@ import 'items/movie_item.dart';
 
 class MoviesScreen extends StatefulWidget {
   const MoviesScreen({Key? key}) : super(key: key);
-
   @override
   State<MoviesScreen> createState() => _MoviesScreenState();
 }
@@ -118,13 +117,10 @@ class _MoviesScreenState extends State<MoviesScreen> {
 
   Widget buildLoadedListWidgets() {
     return SingleChildScrollView(
-      child: Container(
-        color: ProjectColors.projectBlackColor,
-        child: Column(
-          children: [
-            buildMovieList(),
-          ],
-        ),
+      child: Column(
+        children: [
+          buildMovieList(),
+        ],
       ),
     );
   }
@@ -187,6 +183,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ProjectColors.projectBlackColor,
       appBar: AppBar(
         backgroundColor: ProjectColors.projectRedColor,
         leading: _isSearching
