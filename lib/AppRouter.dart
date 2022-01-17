@@ -29,13 +29,14 @@ class AppRouter {
         );
 
       case movieDetalisScreen:
-        final movies = settings.arguments as Results;
-
+      // final movies = settings.arguments as Results;
+      final movieId = settings.arguments as String;
+      print(movieId+" App Router");
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (BuildContext context) => MoviesCubit(moviesRepository),
             child: MovieDetails(
-              movies: movies,
+              movieId: movieId,
             ),
           ),
         );

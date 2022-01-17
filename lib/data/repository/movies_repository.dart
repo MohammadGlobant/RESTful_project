@@ -14,7 +14,7 @@ class MoviesRepository{
 
   Future<Details> getMovieDetails(String id) async {
     final movieDetails = await moviesWebServices.getMovieDetails(id);
-    return movieDetails.map((movieDetail) => Details.fromJson(movieDetail));
+    return movieDetails.map((movieDetail) => Details.fromJson(movieDetail)).first;
   }
 
 }

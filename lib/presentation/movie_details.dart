@@ -7,11 +7,11 @@ import 'package:restful_project/business_logic/movies_cubit.dart';
 import 'package:restful_project/constants/endpoints.dart';
 import 'package:restful_project/constants/project_colors.dart';
 import 'package:restful_project/data/models/Details.dart';
-import 'package:restful_project/data/models/Results.dart';
 
 class MovieDetails extends StatelessWidget {
-  final Results movies;
-  const MovieDetails({Key? key, required this.movies}) : super(key: key);
+  // final Results movies;
+  final String movieId;
+  const MovieDetails({Key? key, required this.movieId}) : super(key: key);
 
   Widget buildSliverAppBar(Details details) {
     return SliverAppBar(
@@ -22,13 +22,13 @@ class MovieDetails extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Text(
-          "${details.originalTitle}+ ",
+          "${details.originalTitle}+ mohammad",
           style: const TextStyle(color: ProjectColors.projectWhiteColor),
         ),
         background: Hero(
           tag: "${details.id}+ ",
           child: Image.network(
-            "${EndPoints.movieImage}+${details.posterPath}",
+            EndPoints.movieImage + details.posterPath,
             fit: BoxFit.cover,
           ),
         ),
@@ -73,42 +73,43 @@ class MovieDetails extends StatelessWidget {
 
   Widget checkIfMovieDataAreLoaded(MoviesState state) {
     if (state is DetailsLoaded) {
-      return displayRandomDataOrEmptySpace(state);
+      //return displayRandomDataOrEmptySpace(state);
+      return const SizedBox(width: 10,);
     } else {
       return showProgressIndicator();
     }
   }
 
-  Widget displayRandomDataOrEmptySpace(state) {
-    var quotes = (state).quotes;
-    if (quotes.length != 0) {
-      int randomQuoteIndex = Random().nextInt(quotes.length - 1);
-      return Center(
-        child: DefaultTextStyle(
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 20,
-            color: ProjectColors.projectWhiteColor,
-            shadows: [
-              Shadow(
-                blurRadius: 7,
-                color: ProjectColors.projectRedColor,
-                offset: Offset(0, 0),
-              )
-            ],
-          ),
-          child: AnimatedTextKit(
-            repeatForever: true,
-            animatedTexts: [
-              FlickerAnimatedText(quotes[randomQuoteIndex].quote),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Container();
-    }
-  }
+  // Widget displayRandomDataOrEmptySpace(state) {
+  //   var quotes = (state).quotes;
+  //   if (quotes.length != 0) {
+  //     int randomQuoteIndex = Random().nextInt(quotes.length - 1);
+  //     return Center(
+  //       child: DefaultTextStyle(
+  //         textAlign: TextAlign.center,
+  //         style: const TextStyle(
+  //           fontSize: 20,
+  //           color: ProjectColors.projectWhiteColor,
+  //           shadows: [
+  //             Shadow(
+  //               blurRadius: 7,
+  //               color: ProjectColors.projectRedColor,
+  //               offset: Offset(0, 0),
+  //             )
+  //           ],
+  //         ),
+  //         child: AnimatedTextKit(
+  //           repeatForever: true,
+  //           animatedTexts: [
+  //             FlickerAnimatedText(quotes[randomQuoteIndex].quote),
+  //           ],
+  //         ),
+  //       ),
+  //     );
+  //   } else {
+  //     return Container();
+  //   }
+  // }
 
   Widget showProgressIndicator() {
     return const Center(
@@ -120,7 +121,8 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Details details = BlocProvider.of<MoviesCubit>(context).getMovieInfo("${movies.id}");
+    print(movieId+" Details");
+    Details details = BlocProvider.of<MoviesCubit>(context).getMovieInfo(movieId);
     return Scaffold(
       backgroundColor: ProjectColors.projectBlackColor,
       body: CustomScrollView(
@@ -149,11 +151,11 @@ class MovieDetails extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      BlocBuilder<MoviesCubit, MoviesState>(
-                        builder: (context, state) {
-                          return checkIfMovieDataAreLoaded(state);
-                        },
-                      ),
+                      // BlocBuilder<MoviesCubit, MoviesState>(
+                      //   builder: (context, state) {
+                      //     return checkIfMovieDataAreLoaded(state);
+                      //   },
+                      // ),
                     ],
                   ),
                 ),

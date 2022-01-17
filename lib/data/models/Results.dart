@@ -2,7 +2,7 @@ class Results {
   late bool adult;
   late String backdropPath;
   late List<dynamic> genreIds;
-  late int id;
+  late String id;
   late String originalLanguage;
   late String originalTitle;
   late String overview;
@@ -19,7 +19,7 @@ class Results {
     adult = json['adult'];
     backdropPath = json['backdrop_path'];
     genreIds = json['genre_ids'].cast<int>();
-    id = json['id'];
+    id = json['id'].toString();
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
     overview = json['overview'];

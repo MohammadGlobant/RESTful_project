@@ -9,7 +9,7 @@ part 'movies_state.dart';
 class MoviesCubit extends Cubit<MoviesState> {
   final MoviesRepository moviesRepository;
   List<Results> movies = [];
-  late Details details ;
+  Details details = Details();
 
   MoviesCubit(this.moviesRepository) : super(MoviesInitial());
 
@@ -22,6 +22,7 @@ class MoviesCubit extends Cubit<MoviesState> {
   }
 
   Details getMovieInfo(String id){
+    print(id+" Cubit");
     moviesRepository.getMovieDetails(id).then((details){
       emit(DetailsLoaded(details));
       this.details = details;

@@ -1,17 +1,18 @@
 class Details {
-  late String backdropPath;
-  late int budget;
-  late int id;
-  late String imdbId;
-  late String originalLanguage;
-  late String originalTitle;
-  late String overview;
-  late double popularity;
-  late String posterPath;
-  late String releaseDate;
-  late double voteAverage;
-  late int voteCount;
+   String backdropPath= "";
+   int budget= 0;
+   int id= 0;
+   String imdbId= "";
+   String originalLanguage= "";
+   String originalTitle = "";
+   String overview= "";
+   double popularity= 0.0;
+   String posterPath= "";
+   String releaseDate= "";
+   double voteAverage= 0.0;
+   int voteCount= 0;
 
+  Details(){}
   Details.fromJson(Map<String, dynamic> json) {
     backdropPath = json['backdrop_path'];
     budget = json['budget'];
