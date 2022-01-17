@@ -86,12 +86,10 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(movieId+" Details");
     BlocProvider.of<MoviesCubit>(context).getMovieInfo(movieId);
     return BlocBuilder<MoviesCubit,MoviesState>(builder: (context,state){
       if(state is DetailsLoaded) {
         Details details = (state).details.first;
-        print(details.title.toString()+" Details");
         return Scaffold(
         backgroundColor: ProjectColors.projectBlackColor,
         body: CustomScrollView(
@@ -120,11 +118,6 @@ class MovieDetails extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        // BlocBuilder<MoviesCubit, MoviesState>(
-                        //   builder: (context, state) {
-                        //     return checkIfMovieDataAreLoaded(state);
-                        //   },
-                        // ),
                       ],
                     ),
                   ),

@@ -20,7 +20,6 @@ class MovieItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: InkWell(
-        // onTap: () => Navigator.pushNamed(context, AppRouter.movieDetalisScreen , arguments: movie),
         onTap: () => Navigator.pushNamed(context, AppRouter.movieDetalisScreen , arguments: movie.id),
         child: GridTile(
           child: Hero(

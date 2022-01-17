@@ -23,15 +23,9 @@ class MoviesCubit extends Cubit<MoviesState> {
 
   void getMovieInfo(String id){
     moviesRepository.getMovieDetails(id).then((details){
-      print(details.first);
-      print(" here this fucking thing should be printed ");
-      // emit(DetailsLoaded(details));
-      // this.details = details;
+      emit(DetailsLoaded(details));
+      this.details = details;
     });
-
-    // print("mohammad test from cubit");
-    // print(details);
-    // return details;
   }
 
 }

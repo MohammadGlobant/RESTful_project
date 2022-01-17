@@ -18,7 +18,6 @@ class MoviesWebServices{
   Future<List<dynamic>> getAllMovies() async {
     Response response = await dio.get(EndPoints.allMovies);
     List<dynamic> responseData = jsonDecode(response.toString())['results'];
-    print("data reseived : "+responseData.toString());
     return responseData;
   }
 
@@ -26,7 +25,6 @@ class MoviesWebServices{
   Future<List<dynamic>> getMovieDetails(String id) async {
     Response response = await dio.get(id+EndPoints.movieDetails);
     dynamic responseData = jsonDecode("["+response.toString()+"]");
-    print("data reseived 2 : "+responseData.toString());
     return responseData;
   }
 }

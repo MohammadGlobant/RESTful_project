@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restful_project/business_logic/movies_cubit.dart';
-import 'package:restful_project/data/models/Details.dart';
-import 'package:restful_project/data/models/Results.dart';
 import 'package:restful_project/data/repository/movies_repository.dart';
 import 'package:restful_project/data/web_services/movies_web_services.dart';
 import 'package:restful_project/presentation/movie_details.dart';
