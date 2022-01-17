@@ -11,6 +11,6 @@ class MoviesLoaded extends MoviesState{
 }
 
 class DetailsLoaded extends MoviesState{
-  final Details details;
+  final List<Details> details;
   DetailsLoaded(this.details);
 }

@@ -1,6 +1,3 @@
-import 'dart:math';
-
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restful_project/business_logic/movies_cubit.dart';
@@ -9,7 +6,6 @@ import 'package:restful_project/constants/project_colors.dart';
 import 'package:restful_project/data/models/Details.dart';
 
 class MovieDetails extends StatelessWidget {
-  // final Results movies;
   final String movieId;
   const MovieDetails({Key? key, required this.movieId}) : super(key: key);
 
@@ -28,7 +24,7 @@ class MovieDetails extends StatelessWidget {
         background: Hero(
           tag: "${details.id}+ ",
           child: Image.network(
-            EndPoints.movieImage + details.posterPath,
+            EndPoints.movieImage + details.posterPath!,
             fit: BoxFit.cover,
           ),
         ),
@@ -80,37 +76,6 @@ class MovieDetails extends StatelessWidget {
     }
   }
 
-  // Widget displayRandomDataOrEmptySpace(state) {
-  //   var quotes = (state).quotes;
-  //   if (quotes.length != 0) {
-  //     int randomQuoteIndex = Random().nextInt(quotes.length - 1);
-  //     return Center(
-  //       child: DefaultTextStyle(
-  //         textAlign: TextAlign.center,
-  //         style: const TextStyle(
-  //           fontSize: 20,
-  //           color: ProjectColors.projectWhiteColor,
-  //           shadows: [
-  //             Shadow(
-  //               blurRadius: 7,
-  //               color: ProjectColors.projectRedColor,
-  //               offset: Offset(0, 0),
-  //             )
-  //           ],
-  //         ),
-  //         child: AnimatedTextKit(
-  //           repeatForever: true,
-  //           animatedTexts: [
-  //             FlickerAnimatedText(quotes[randomQuoteIndex].quote),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   } else {
-  //     return Container();
-  //   }
-  // }
-
   Widget showProgressIndicator() {
     return const Center(
       child: CircularProgressIndicator(
@@ -122,51 +87,59 @@ class MovieDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(movieId+" Details");
-    Details details = BlocProvider.of<MoviesCubit>(context).getMovieInfo(movieId);
-    return Scaffold(
-      backgroundColor: ProjectColors.projectBlackColor,
-      body: CustomScrollView(
-        slivers: [
-          buildSliverAppBar(details),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(14, 14, 14, 0),
-                  padding: const EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      movieInfo('Budget : ', "${details.budget}"),
-                      buildDivider(315),
-                      movieInfo(
-                          'Original Language : ', details.originalLanguage),
-                      buildDivider(250),
-                      movieInfo('Vote Count : ',
-                          "${details.voteCount}"),
-                      buildDivider(280),
-                      movieInfo('Popularity : ',  "${details.popularity}"),
-                      buildDivider(300),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      // BlocBuilder<MoviesCubit, MoviesState>(
-                      //   builder: (context, state) {
-                      //     return checkIfMovieDataAreLoaded(state);
-                      //   },
-                      // ),
-                    ],
+    BlocProvider.of<MoviesCubit>(context).getMovieInfo(movieId);
+    return BlocBuilder<MoviesCubit,MoviesState>(builder: (context,state){
+      if(state is DetailsLoaded) {
+        Details details = (state).details.first;
+        print(details.title.toString()+" Details");
+        return Scaffold(
+        backgroundColor: ProjectColors.projectBlackColor,
+        body: CustomScrollView(
+          slivers: [
+            buildSliverAppBar(details),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(14, 14, 14, 0),
+                    padding: const EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        movieInfo('Budget : ', "${details.budget}"),
+                        buildDivider(315),
+                        movieInfo(
+                            'Original Language : ', details.originalLanguage!),
+                        buildDivider(250),
+                        movieInfo('Vote Count : ',
+                            "${details.voteCount}"),
+                        buildDivider(280),
+                        movieInfo('Popularity : ',  "${details.popularity}"),
+                        buildDivider(300),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        // BlocBuilder<MoviesCubit, MoviesState>(
+                        //   builder: (context, state) {
+                        //     return checkIfMovieDataAreLoaded(state);
+                        //   },
+                        // ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 500,
-                )
-              ],
+                  const SizedBox(
+                    height: 500,
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+      } else {
+        return showProgressIndicator();
+      }
+    });
   }
 }

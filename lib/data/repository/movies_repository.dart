@@ -12,9 +12,10 @@ class MoviesRepository{
     return movies.map((movie) => Results.fromJson(movie)).toList();
   }
 
-  Future<Details> getMovieDetails(String id) async {
+  Future<List<Details>> getMovieDetails(String id) async {
     final movieDetails = await moviesWebServices.getMovieDetails(id);
-    return movieDetails.map((movieDetail) => Details.fromJson(movieDetail)).first;
+    print(" movies repository  "+id);
+    return movieDetails.map((movieDetail) => Details.fromJson(movieDetail)).toList();
   }
 
 }
